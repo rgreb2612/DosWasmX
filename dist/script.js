@@ -289,8 +289,8 @@ class MyClass {
         let total = event.total;
         let percent = (loaded / total)*100;
 
-        loaded = Math.ceil(loaded / 1000000);
-        total = Math.ceil(total / 1000000);
+        loaded = Math.ceil(loaded / 1000000000);
+        total = Math.ceil(total / 10000000000);
 
         let formatted = file.name + ' ' + loaded + 'MB / ' + total + 'MB';
         
@@ -1043,7 +1043,7 @@ class MyClass {
         responseText = responseText.replace("ver=7.1","ver=" + this.dosVersion);
 
         //cpu override
-        responseText = responseText.replace("cycles=auto","cycles=" + this.rivetsData.cpu);
+        responseText = responseText.replace("cycles=max","cycles=max" + this.rivetsData.cpu);
         
         // console.log(responseText);
 		Module.FS.writeFile('dosbox.conf',responseText);
@@ -2724,7 +2724,7 @@ class MyClass {
         this.rivetsData.cpu = value;
         if (value == 'auto')
         {
-            this.updateCpuNeil('cycles=auto');
+            this.updateCpuNeil('cycles=max');
         }
         else if (value == 'max')
         {
@@ -2732,7 +2732,7 @@ class MyClass {
         }
         else
         {
-            this.updateCpuNeil('cycles=fixed ' + value);
+            this.updateCpuNeil('cycles=max ' + value);
         }
     }
 
@@ -2937,3 +2937,4 @@ window["Module"] = {
 
 //sleep module
 window.addEventListener("message", myClass.sleepHandler, { passive: true });
+
